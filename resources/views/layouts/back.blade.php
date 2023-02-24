@@ -113,7 +113,66 @@
             $('#deleteModal').find('.btn-primary').attr('href', $(this).attr('href'));
         });
     </script>
+    <script>
+        $('#staff_name').change(function() {
+            var staff = $(this).val();
+            $.ajax({
+                url: "{{route('salary.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "staff_code": staff
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('.code').show();
+                    $("#code").html(data);
+                }
+            });
+        });
+        $('#staff_name').change(function() {
+            var staff = $(this).val();
+            $.ajax({
+                url: "{{route('salary.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "designation": staff
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('.designation').show();
+                    $("#designation").html(data);
+                }
+            });
+        });
+        $('#staff_name').change(function() {
+            var staff = $(this).val();
+            $.ajax({
+                url: "{{route('salary.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "doj": staff
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('.doj').show();
+                    $("#doj").html(data);
+                }
+            });
+        });
+    </script>
 
+<!-- <script>
+        jQuery(document).ready(function() {
+            jQuery('.staff_name').change(function() {
+                
+                    jQuery('#staff_code').show();
+                })
+            });
+        
+    </script> -->
 </body>
 
 </html>

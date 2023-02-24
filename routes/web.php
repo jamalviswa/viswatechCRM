@@ -19,7 +19,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientsMeetingController;
 use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\SalaryInfoController;
-use GuzzleHttp\Middleware;
+
 
 Route::prefix('admin')->group(function () {
     //login
@@ -69,6 +69,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/salary/info', [SalaryInfoController::class, 'salary_info_index'])->name('salary.salary_info_index')->Middleware('auth');
     Route::get('/salary/info/add', [SalaryInfoController::class, 'salary_info_add'])->name('salary.salary_info_add')->Middleware('auth');
     Route::post('/salary/info/store', [SalaryInfoController::class, 'salary_info_store'])->name('salary.salary_info_store')->Middleware('auth');
+
+
+    Route::post('/salary/info/ajax', [SalaryInfoController::class, 'ajax'])->name('salary.ajax');
 
     //logout
     Route::get('/logout', [AdminusersController::class,'logout'])->name('adminusers.logout');

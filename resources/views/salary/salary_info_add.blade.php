@@ -36,61 +36,57 @@
                                     </a>
                                 </div>
                             </div>
-                            <form id="basic-form" action="{{route('salary.salary_info_store')}}" method="post" enctype="multipart/form-data" id="salary">
+                            <form id="basic-form" action="{{route('salary.salary_info_store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="col-mb-6 row justify-content-center">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Staff Name<span style="color:red">*</span></label>
-                                            <div class="col-md-3 mb-3">
-                                                <select class="form-select" name="staff_name" id="staff_name" class="staff_name">
+                                    <div class="offset-md-3 col-xl-6 offset-md-3">
+                                        <div class="mb-3 row">
+                                            <label class="col-md-3 col-form-label">Staff Name <span style="color:red">*</span></label>
+                                            <div class="col-md-9">
+                                            <select class="form-select" name="staff_name" id="staff_name" onchange="show()">
                                                     <option value="0" selected="true">Select Staff</option>
                                                     <?php
-                                                    $staffs = App\Models\Staffs::all();
+                                                    $staffs = App\Models\Staff::where('status', 'Active')->get();
                                                     foreach ($staffs as $staff) {
                                                     ?>
-                                                    <option value="{{ $staff->id }}" data-designation="{{ $staff->designation}}">{{$staff->name}}</option>
+                                                    <option  @if((old('staff_name')) && old('staff_name')==$staff['id']) selected @endif value="<?php echo $staff->id ?>"><?php echo $staff->staff_name ?></option>
                                                     <?php }
                                                     ?>
-
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div class="col-mb-6 row justify-content-center">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Staff Id</label>
-                                            <div class="col-md-3  mb-5">
-                                                <input class="form-control" type="text"  name="staff_id" id="staff_id" class="staff_id" value=""  disabled>
-                                                @error('staff_id')
-                                                    <div class="text text-danger">{{ $message }}</div>
-                                                @enderror
-                                           </div>
-                                          
-                                        </div>
-                                        <div class="col-mb-6 row justify-content-center">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Designation</label>
-                                            <div class="col-md-3  mb-5" id="designation">
-                                                <input class="form-control" type="text"  name="designation" id="designation" class="designation"  disabled>
-                                                @error('designation')
-                                                    <div class="text text-danger">{{ $message }}</div>
-                                                @enderror
-                                           </div>
-                                           
-                                        </div>
-                                        <div class="col-mb-6 row justify-content-center">
-                                            <label for="example-text-input" class="col-md-2 col-form-label">Gross Salary<span style="color:red">*</span></label>
-                                            <div class="col-md-3  mb-5">
-                                                <input class="form-control" type="text" id="gross_sal" name="gross_salary">
+                                        <div class="mb-3 row code" style="display:none;" id="staff_code">
+                                            <label class="col-md-3 col-form-label">Staff Id</label>
+                                            <div class="col-md-9" id="code">
+                                                <input class="form-control" type="text" autocomplete="off" name="code">
+                                            </div>
+                                        </div>   
+                                        <div class="mb-3 row designation" style="display:none;" id="staff_designation">
+                                            <label class="col-md-3 col-form-label">Designation</label>
+                                            <div class="col-md-9" id="designation">
+                                                <input class="form-control" type="text" autocomplete="off" name="designation">
+                                            </div>
+                                        </div>  
+                                        <div class="mb-3 row doj" style="display:none;" id="staff_doj">
+                                            <label class="col-md-3 col-form-label">Date of Joining</label>
+                                            <div class="col-md-9" id="doj">
+                                                <input class="form-control" type="text" name="doj">
+                                            </div>
+                                        </div>  
+                                        <div class="mb-3 row">
+                                            <label class="col-md-3 col-form-label">Gross Salary<span style="color:red">*</span></label>
+                                            <div class="col-md-9" id="doj">
+                                            <input class="form-control" type="text" id="gross_sal" name="gross_salary">
                                                 @error('gross_salary')
                                                     <div class="text text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
-                                           
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="input-group mb-3 justify-content-center">
-                                                <button type="submit" class="btn btn-outline-primary">Submit</button>
-                                            </div>
+                                        </div>                                          
+                                        <div class="mt-3 mx-auto">
+                                            <button type="submit" class="btn btn-outline-primary">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{route('salary.salary_info_index')}}" class="btn btn-secondary waves-effect">
+                                                Cancel
+                                            </a>
                                         </div>
                                     </div>
                                 </div><!--end of row-->
@@ -106,19 +102,15 @@
 <!-- ============================================================== -->
 <!-- End main Content here -->
 <!-- ============================================================== -->
-<!-- JQuery  -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-       $(document).on('change','.staff_name',function(){
-        
-        var id = $(this).children(':selected').data('id');
-    console.log(id);
-    
-    $("#staff_id").val(id); 
-    });
-});
-</script>
-
-
-@endsections
+<style>
+div.col-mb-3 div.row .code{
+    display: none;
+}
+div.col-mb-6 div.justify-content-center .designation{
+    display: none;
+}
+div.col-mb-6 div.justify-content-center .doj{
+    display: none;
+}
+</style>
+@endsection

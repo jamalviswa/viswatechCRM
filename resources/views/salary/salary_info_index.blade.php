@@ -58,10 +58,10 @@
                                         <select class="form-select" name="staff_name">
                                                     <option selected>Select Staff</option>
                                                     <?php
-                                                        $staffs = App\Models\Staffs::where('status', 'Active')->get();
+                                                        $staffs = App\Models\Staff::where('status', 'Active')->get();
                                                         foreach ($staffs as $staff) {
                                                     ?>
-                                                    <option value="<?php echo $staff->id ?>"><?php echo $staff->name ?></option>
+                                                    <option value="<?php echo $staff->id ?>"><?php echo $staff->staff_name ?></option>
                                                     <?php }
                                                     ?>
 
@@ -83,6 +83,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                        <?php if ($salary->count() > '0') { ?>
 
                                 <!-- Table Section Start -->
                                 <div class="table-responsive">
@@ -93,33 +94,68 @@
                                                 <th scope="col">Staff ID</th>
                                                 <th scope="col">Staff Name</th>
                                                 <th scope="col">Designation</th>
-                                                <th scope="col">Gross Salary</th>
+                                                <th scope="col">Gross Salary(Rs)</th>
                                                 <th scope="col">Action</th>
+                                                <th scope="col">Modified Date</th>
+
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            
+                                        <tbody style="text-align:center">
+                                            <?php $i = ($salary->currentpage() - 1) * $salary->perpage() + 1; ?>
+                                            @foreach($salary as $sal)
                                             <tr>
                                                 <td>
-                                                   
+                                                    {{ $i }}
                                                 </td>
-                                                
+                                                <td>
+                                                    <h5 class="font-size-15 mb-0">{{$sal['staff_code']}}</h5>
+                                                </td>
+                                                <td>
+                                                    @if(!empty($sal['staff_name'])) {{$sal['staff_name']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                @if(!empty($sal['designation'])) {{$sal['designation']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                @if(!empty($sal['gross_salary'])) {{$sal['gross_salary']}} @else {{"-"}} @endif
+                                                </td>
                                                 <td>
                                                     <a type="button" class="btn btn-outline-info btn-sm" href="" title="Edit">Edit</a>
                                                     <a type="button" class="btn btn-outline-success btn-sm" href="" title="View">View</a>
-                                                    <a rel="tooltip" data-value="" href="" class="delete btn btn-outline-danger btn-sm" title="Delete">Delete</a>
+                                                    <a rel="tooltip" data-value="{{$salary['id']}}" href="" class="delete btn btn-outline-danger btn-sm" title="Delete">Delete</a>
+                                                </td>
+                                               
+                                                <td>
+                                                    {{$sal['updated_at']}}
                                                 </td>
                                             </tr>
+                                            <?php $i++; ?>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                                 <!-- Table Section End -->
-                                
 
+                                <!-- Pagination Section Start -->
+                                <div class="row">
+                                    <div class="card-title-desc">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p> Showing {{$salary->firstItem()}} to {{$salary->lastItem()}} of {{$salary->total()}} entries</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="d-inline-block float-end">
+                                            {{$salary->links('layouts.pagination') }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination Section End -->
+
+                            <?php } else { ?>
                                 <div class="text-center">
                                     <img src="{{URL::to('images/no-record.png')}}">
                                 </div>
-
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
