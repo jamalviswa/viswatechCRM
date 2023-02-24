@@ -1,4 +1,4 @@
- <!-- ========== Header Start ========== -->
+<!-- ========== Header Start ========== -->
  <header id="page-topbar">
      <div class="navbar-header">
          <div class="d-flex">
@@ -25,15 +25,18 @@
          <div class="d-flex">
              <div class="dropdown d-inline-block user-dropdown">
                  <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <img class="rounded-circle header-profile-user" src="{{URL::to('images/avatar.jpg')}}" alt="Header Avatar">
-                     <span class="d-none d-xl-inline-block ms-1">Viswa</span>
+
+                     @if(Auth::user()->profile)
+                        <img class="rounded-circle header-profile-user" src="{{asset('/images/'.Auth::user()->profile)}}" alt="Header Avatar">
+                    @endif
+                     <span class="d-none d-xl-inline-block ms-1">{{auth()->user()->username}}</span>
                      <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                  </button>
                  <div class="dropdown-menu dropdown-menu-end">
                      <!-- item-->
                      <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
                      <div class="dropdown-divider"></div>
-                     <a class="dropdown-item text-danger" href="#">
+                     <a class="dropdown-item text-danger" href="{{route('adminusers.logout')}}">
                          <i class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout
                      </a>
                  </div>

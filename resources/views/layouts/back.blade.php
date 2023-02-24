@@ -23,6 +23,11 @@
     <!-- Sweetalert Css-->
     <link rel="stylesheet" href="{{ URL::asset('css/sweetalert.css') }}">
 
+    <!-- plugin css -->
+    <link href="{{ URL::asset('libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
+    
+    
 </head>
 
 <body data-topbar="dark" data-layout="horizontal">
@@ -57,6 +62,11 @@
     <script src="{{ URL::asset('libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ URL::asset('libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ URL::asset('libs/node-waves/waves.min.js') }}"></script>
+
+    <!--PLUGINS -->
+    <script src="{{ URL::asset('libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('libs/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
+
     <script src="{{ URL::asset('js/app.js') }}"></script>
 
     <!-- Sweetalert Js-->
@@ -101,59 +111,6 @@
             e.preventDefault();
             $('#deleteModal').modal('show');
             $('#deleteModal').find('.btn-primary').attr('href', $(this).attr('href'));
-        });
-    </script>
-
-    <script>
-        $('#staff').change(function() {
-            var staff = $(this).val();
-            $.ajax({
-                url: "{{route('salaryinfos.ajax')}}",
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "staff": staff
-                },
-                dataType: 'html',
-                success: function(data) {
-                    $('.code').removeClass('hide');
-                    $("#codes").html(data);
-                }
-            });
-        });
-
-        $('#staff').change(function() {
-            var designation = $(this).val();
-            $.ajax({
-                url: "{{route('salaryinfos.ajax')}}",
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "designation": designation
-                },
-                dataType: 'html',
-                success: function(data) {
-                    $('.designation').removeClass('hide');
-                    $("#designation").html(data);
-                }
-            });
-        });
-
-        $('#staff').change(function() {
-            var mobile = $(this).val();
-            $.ajax({
-                url: "{{route('salaryinfos.ajax')}}",
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "mobile": mobile
-                },
-                dataType: 'html',
-                success: function(data) {
-                    $('.mobile').removeClass('hide');
-                    $("#mobile").html(data);
-                }
-            });
         });
     </script>
 

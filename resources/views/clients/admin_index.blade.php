@@ -12,11 +12,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Client Management</h4>
+                        <h4 class="mb-sm-0">Staff Management</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Client Management</li>
+                                <li class="breadcrumb-item active">Staff Management</li>
                             </ol>
                         </div>
                     </div>
@@ -29,10 +29,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row card-title-desc">
-                                <div class="col-lg-6 page-title-box">
-                                    <h4 class="mb-sm-0">All Client Lists</h4>
-                                </div>
-                                <div class="col-lg-6 mx-auto text-end">
+                                <div class="col-lg-12 mx-auto text-end">
                                     <a href="{{route('clients.admin_add')}}" class="btn btn-primary waves-effect waves-light">
                                         <i class="mdi mdi-plus me-1"></i> Add New
                                     </a>
@@ -43,16 +40,11 @@
                             <form class="row row-cols-lg-auto g-3 align-items-center" method="GET" action="#">
                                 <div class="col-12">
                                     <div class="input-group">
-                                        <label class="">Client Name</label>
+                                        <input type="text" class="form-control" placeholder="Client Name" name="s" autocomplete="off" @if(isset($_REQUEST['s'])) value="{{ $_REQUEST['s'] }}" @else value="" @endif>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="s" autocomplete="off" @if(isset($_REQUEST['s'])) value="{{ $_REQUEST['s'] }}" @else value="" @endif>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-primary" name="search">Search</button>
+                                    <button type="submit" class="btn btn-primary" name="search">Submit</button>
                                     @if (isset($_REQUEST['search']))
                                     <a type="submit" href="{{ route('clients.admin_index') }}" class="btn btn-danger">Cancel</a>
                                     @endif
@@ -77,11 +69,12 @@
                                             <tr style="background-color: #252b3b;color: #fff;">
                                                 <th scope="col" style="width: 60px;">#</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">E-Mail ID</th>
-                                                <th scope="col">Mobile Number</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Mobile</th>
                                                 <th scope="col">Country</th>
                                                 <th scope="col">State</th>
                                                 <th scope="col">District</th>
+                                                <th scope="col">Created Date</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -105,10 +98,13 @@
                                                     @if(!empty($client['country'])) {{$client['country']}} @else {{"-"}} @endif
                                                 </td>
                                                 <td>
-                                                    @if(!empty($client['state'])) {{$client['state']}} @else {{"-"}} @endif
+                                                     @if(!empty($client['state'])) {{$client['state']}} @else {{"-"}} @endif
                                                 </td>
                                                 <td>
                                                     @if(!empty($client['district'])) {{$client['district']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                    {{$client['created_at']}}
                                                 </td>
                                                 <td>
                                                     <a type="button" class="btn btn-outline-info btn-sm" href="{{ route('clients.admin_edit', $client['id']) }}" title="Edit">Edit</a>

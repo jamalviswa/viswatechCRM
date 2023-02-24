@@ -3,16 +3,17 @@
 
 <!-- Login Section Start -->
 <h4 class="font-size-18 text-muted mt-2 text-center">Welcome Back !</h4>
-<form class="form-horizontal" action="#">
+<form class="form-horizontal" action="{{ route('adminusers.authenticate')}}" method="post">
+    @csrf
     <div class="row">
         <div class="col-md-12">
             <div class="mb-4">
                 <label class="form-label">Username</label>
-                <input type="text" class="form-control" placeholder="Enter username">
+                <input type="text" class="form-control" placeholder="Enter username" name="username">
             </div>
             <div class="mb-4">
                 <label class="form-label">Password</label>
-                <input type="password" class="form-control" placeholder="Enter password">
+                <input type="password" class="form-control" placeholder="Enter password" name="password">
             </div>
             <div class="row">
                 <div class="col">

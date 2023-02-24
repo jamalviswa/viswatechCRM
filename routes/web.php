@@ -16,48 +16,61 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminusersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\DashboardController;
-
-use App\Http\Controllers\SalaryinfosController;
-
+use App\Http\Controllers\ClientsMeetingController;
 use App\Http\Controllers\StaffsController;
-
-use App\Http\Controllers\ProjectestimationsController;
+use App\Http\Controllers\SalaryInfoController;
+use GuzzleHttp\Middleware;
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminusersController::class, 'login'])->name('adminusers.login');
-    Route::any('/forgot', [AdminusersController::class, 'forgot'])->name('adminusers.forgot');
+    //login
+    
+    Route::get('/', [AdminusersController::class, 'login'])->name('adminusers.login')->middleware('guest');
+    Route::post('/authenticate', [AdminusersController::class,'authenticate'])->name('adminusers.authenticate')->middleware('guest');
+    
+    //forget
+    
+    Route::any('/forgot', [AdminusersController::class, 'forgot'])->name('adminusers.forgot')->middleware('guest');
 
+    //dashboard
+    
+    Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->Middleware('auth');
 
-    Route::get('/index', [DashboardController::class, 'index'])->name('dashboard.index');
+     //staff management
 
-
+     Route::get('/staffs', [StaffsController::class, 'staff_index'])->name('staffs.staff_index')->Middleware('auth');
+     Route::get('/staffs/add', [StaffsController::class, 'staff_add'])->name('staffs.staff_add')->Middleware('auth');
+     Route::post('/staffs/store', [StaffsController::class, 'staff_store'])->name('staffs.staff_store')->Middleware('auth');
+     Route::get('/staffs/edit/{id}', [StaffsController::class, 'staff_edit'])->name('staffs.staff_edit')->Middleware('auth');
+     Route::post('/staffs/update/{id}', [StaffsController::class, 'staff_update'])->name('staffs.staff_update')->Middleware('auth');
+     Route::get('/staffs/view/{id}', [StaffsController::class, 'staff_view'])->name('staffs.staff_view')->Middleware('auth');
+     Route::get('/staffs/delete/{id}', [StaffsController::class, 'staff_delete'])->name('staffs.staff_delete')->Middleware('auth');
+ 
     //Client List
-    Route::get('/clients', [ClientsController::class, 'admin_index'])->name('clients.admin_index');
-    Route::get('/clients/add', [ClientsController::class, 'admin_add'])->name('clients.admin_add');
-    Route::post('/clients/store', [ClientsController::class, 'admin_store'])->name('clients.admin_store');
-    Route::get('/clients/edit/{id}', [ClientsController::class, 'admin_edit'])->name('clients.admin_edit');
-    Route::post('/clients/update/{id}', [ClientsController::class, 'admin_update'])->name('clients.admin_update');
-    Route::get('/clients/view/{id}', [ClientsController::class, 'admin_view'])->name('clients.admin_view');
-    Route::get('/clients/delete/{id}', [ClientsController::class, 'admin_delete'])->name('clients.admin_delete');
+    Route::get('/clients', [ClientsController::class, 'admin_index'])->name('clients.admin_index')->Middleware('auth');
+    Route::get('/clients/add', [ClientsController::class, 'admin_add'])->name('clients.admin_add')->Middleware('auth');
+    Route::post('/clients/store', [ClientsController::class, 'admin_store'])->name('clients.admin_store')->Middleware('auth');
+    Route::get('/clients/edit/{id}', [ClientsController::class, 'admin_edit'])->name('clients.admin_edit')->Middleware('auth');
+    Route::post('/clients/update/{id}', [ClientsController::class, 'admin_update'])->name('clients.admin_update')->Middleware('auth');
+    Route::get('/clients/view/{id}', [ClientsController::class, 'admin_view'])->name('clients.admin_view')->Middleware('auth');
+    Route::get('/clients/delete/{id}', [ClientsController::class, 'admin_delete'])->name('clients.admin_delete')->Middleware('auth');
 
-    Route::get('/staffs', [StaffsController::class, 'index'])->name('staffs.index');
-    Route::get('/staffs/add', [StaffsController::class, 'add'])->name('staffs.add');
-    Route::post('/staffs/store', [StaffsController::class, 'store'])->name('staffs.store');
-    Route::get('/staffs/edit/{id}', [StaffsController::class, 'edit'])->name('staffs.edit');
-    Route::post('/staffs/update/{id}', [StaffsController::class, 'update'])->name('staffs.update');
-    Route::get('/staffs/view/{id}', [StaffsController::class, 'view'])->name('staffs.view');
-    Route::get('/staffs/delete/{id}', [StaffsController::class, 'delete'])->name('staffs.delete');
 
-    Route::get('/salaryinfos', [SalaryinfosController::class, 'index'])->name('salaryinfos.index');
-    Route::get('/salaryinfos/add', [SalaryinfosController::class, 'add'])->name('salaryinfos.add');
-    Route::post('/salaryinfos/store', [SalaryinfosController::class, 'store'])->name('salaryinfos.store');
-    Route::get('/salaryinfos/edit/{id}', [SalaryinfosController::class, 'edit'])->name('salaryinfos.edit');
-    Route::post('/salaryinfos/update/{id}', [SalaryinfosController::class, 'update'])->name('salaryinfos.update');
-    Route::get('/salaryinfos/view/{id}', [SalaryinfosController::class, 'view'])->name('salaryinfos.view');
-    Route::get('/salaryinfos/delete/{id}', [SalaryinfosController::class, 'delete'])->name('salaryinfos.delete');
-    Route::post('/salaryinfos/ajax', [SalaryinfosController::class,'ajax'])->name('salaryinfos.ajax');
+    //client Meetings
+    Route::get('/clients/meetings', [ClientsMeetingController::class, 'meeting_index'])->name('clients.meeting_index')->Middleware('auth');
+    Route::get('/clients/meetings/add', [ClientsMeetingController::class, 'meeting_add'])->name('clients.meeting_add')->Middleware('auth');
+    Route::post('/clients/meetings/store', [ClientsMeetingController::class, 'meeting_store'])->name('clients.meeting_store')->Middleware('auth');
+    Route::get('/clients/meetings/edit/{id}', [ClientsMeetingController::class, 'meeting_edit'])->name('clients.meeting_edit')->Middleware('auth');
+    Route::post('/clients/meetings/update/{id}', [ClientsMeetingController::class, 'meeting_update'])->name('clients.meeting_update')->Middleware('auth');
+    Route::get('/clients/meetings/view/{id}', [ClientsMeetingController::class, 'meeting_view'])->name('clients.meeting_view')->Middleware('auth');
+    Route::get('/clients/meetings/delete/{id}', [ClientsMeetingController::class, 'meeting_delete'])->name('clients.meeting_delete')->Middleware('auth');
 
-    Route::get('/projectestimations', [ProjectestimationsController::class, 'admin_index'])->name('projectestimations.admin_index');
-    Route::get('/projectestimations/add', [ProjectestimationsController::class, 'admin_add'])->name('projectestimations.admin_add');
+    //salary management
+
+    Route::get('/salary/info', [SalaryInfoController::class, 'salary_info_index'])->name('salary.salary_info_index')->Middleware('auth');
+    Route::get('/salary/info/add', [SalaryInfoController::class, 'salary_info_add'])->name('salary.salary_info_add')->Middleware('auth');
+    Route::post('/salary/info/store', [SalaryInfoController::class, 'salary_info_store'])->name('salary.salary_info_store')->Middleware('auth');
+
+    //logout
+    Route::get('/logout', [AdminusersController::class,'logout'])->name('adminusers.logout');
 
 });

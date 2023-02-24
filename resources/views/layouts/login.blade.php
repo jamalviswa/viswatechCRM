@@ -20,6 +20,7 @@
     <!-- App Css-->
     <link href="{{ URL::asset('css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 </head>
 
 <body class="bg-pattern">
@@ -55,6 +56,9 @@
     <script src="{{ URL::asset('libs/metismenu/metisMenu.min.js') }}"></script>
     <script src="{{ URL::asset('libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ URL::asset('libs/node-waves/waves.min.js') }}"></script>
+    <script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+     <script src="assets/libs/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+
     <script src="{{ URL::asset('js/app.js') }}"></script>
 
 </body>
