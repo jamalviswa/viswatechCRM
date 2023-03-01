@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Add Salary Info Details</h4>
+                        <h4 class="mb-sm-0">Edit Salary Info Details</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
@@ -35,54 +35,51 @@
                                     </a>
                                 </div>
                             </div>
-                            <form id="basic-form" action="{{route('salary.salary_info_store')}}" method="post" enctype="multipart/form-data">
-                                @csrf
+                            <form id="basic-form" action="{{route('salary.salary_info_update',$sals['id'])}}" method="post" enctype="multipart/form-data">
+                                @csrf                           
+
                                 <div class="row">
                                     <div class="offset-md-3 col-xl-6 offset-md-3">
                                         <div class="mb-3 row">
-                                            <label class="col-md-3 col-form-label">Staff Name <span style="color:red">*</span></label>
+                                            <label for="example-text-input" class="col-md-3  col-form-label">Staff Name</label>
                                             <div class="col-md-9">
-                                            <select class="form-select" name="staff_name" id="staff_name" onchange="show()">
-                                                    <option value="0" selected="true">Select Staff</option>
-                                                    <?php
-                                                    $staffs = App\Models\Staff::where('status', 'Active')->get();
-                                                    foreach ($staffs as $staff) {
-                                                    ?>
-                                                    <option  @if((old('staff_name')) && old('staff_name')==$staff['id']) selected @endif value="<?php echo $staff->id ?>"><?php echo $staff->staff_name ?></option>
-                                                    <?php }
-                                                    ?>
-                                                </select>
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->staff_name}}</label>
                                             </div>
                                         </div>
-                                        <div class="mb-3 row code" style="display:none;" id="staff_code">
-                                            <label class="col-md-3 col-form-label">Staff Id</label>
-                                            <div class="col-md-9" id="code">
-                                                <input class="form-control" type="text" autocomplete="off" name="code">
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-3  col-form-label">Staff ID</label>
+                                            <div class="col-md-9">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->staff_code}}</label>
                                             </div>
-                                        </div>   
-                                        <div class="mb-3 row designation" style="display:none;" id="staff_designation">
-                                            <label class="col-md-3 col-form-label">Designation</label>
-                                            <div class="col-md-9" id="designation">
-                                                <input class="form-control" type="text" autocomplete="off" name="designation">
+                                        </div>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-3  col-form-label">Designation</label>
+                                            <div class="col-md-9">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->designation}}</label>
                                             </div>
-                                        </div>  
-                                        <div class="mb-3 row doj" style="display:none;" id="staff_doj">
-                                            <label class="col-md-3 col-form-label">Date of Joining</label>
-                                            <div class="col-md-9" id="doj">
-                                                <input class="form-control" type="text" name="doj">
+                                        </div>
+                                        <?php  
+
+                                        $staffs = App\Models\Staff::where('id',$sals->staff_id)->first();
+                                        $doj=$staffs->date_of_joining;
+                                        ?>
+                                        <div class="mb-3 row">
+                                            <label for="example-text-input" class="col-md-3  col-form-label">Date of Joining</label>
+                                            <div class="col-md-9">
+                                                <label for="example-text-input" class="col-md-3  col-form-label"><?php echo $doj ?></label>
                                             </div>
-                                        </div>  
+                                        </div>
                                         <div class="mb-3 row">
                                             <label class="col-md-3 col-form-label">Gross Salary<span style="color:red">*</span></label>
                                             <div class="col-md-9" id="doj">
-                                            <input class="form-control" type="text" id="gross_sal" name="gross_salary">
+                                            <input class="form-control" type="text" id="gross_sal" name="gross_salary" value="{{$sals['gross_salary']}}">
                                                 @error('gross_salary')
                                                     <div class="text text-danger">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>                                          
                                         <div class="mt-3 mx-auto">
-                                            <button type="submit" class="btn btn-outline-primary">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button type="submit" class="btn btn-outline-primary">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <a href="{{route('salary.salary_info_index')}}" class="btn btn-secondary waves-effect">
                                                 Cancel
                                             </a>

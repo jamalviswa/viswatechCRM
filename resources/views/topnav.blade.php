@@ -30,7 +30,7 @@
                           </a>
                           <div class="dropdown-menu" aria-labelledby="topnav-apps">
                                 <a href="{{route('salary.salary_info_index')}}" class="dropdown-item">Salary Info</a>
-                                <a href="" class="dropdown-item">Salary Increment</a>
+                                <a href="{{route('salary.salary_increment_index')}}" class="dropdown-item">Salary Increment</a>
                             </div>
                       </li>
                   </ul>

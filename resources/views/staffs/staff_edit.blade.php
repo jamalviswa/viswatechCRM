@@ -37,7 +37,8 @@
                             </div>
                             <form action="{{route('staffs.staff_update',$staffs['id'])}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="offset-md-3 col-xl-6 offset-md-3">                                        <div class="mb-3 row">
+                                    <div class="offset-md-3 col-xl-6 offset-md-3">                                        
+                                        <div class="mb-3 row">
                                             <label class="col-md-3 col-form-label">Staff Name <span style="color:red">*</span></label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="staff_name" value="{{$staffs['staff_name']}}">
@@ -55,15 +56,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <!-- <div class="mb-3 row">
-                                            <label class="col-md-3 col-form-label">Password <span style="color:red">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="password" class="form-control" name="password"value="{{$staffs['password']}}">
-                                                @error('password')
-                                                <div class="text text-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div> -->
+                                        
                                         <div class="mb-3 row">
                                             <label class="col-md-3 col-form-label">Mobile Number <span style="color:red">*</span></label>
                                             <div class="col-md-9">
@@ -148,7 +141,7 @@
                                                     $arr = explode(' ',trim($staffs['blood_group']));
                                                     $ans = $arr[1];
                                                     ?>
-                                                    <input class="form-check-input" {!! ($ans == "Positive" ) ? "checked" : "" !!} type="radio" name="blood_group_type[]"  id="exampleRadios1" value="Positive" maxlength="4">
+                                                    <input class="form-check-input" {!! ($ans == "Positive" ) ? "checked" : "" !!} type="radio" name="blood_group_type[]"  id="Positive" value="Positive" maxlength="4">
                                                     <label class="form-check-label" for="exampleRadios1">
                                                     Positive
                                                     </label>
@@ -156,13 +149,13 @@
                                             </div>
                                             <div class="col-md-3 text-end"style="margin-top:7px">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="blood_group_type[]"  id="exampleRadios2" value="Negative" {!! ($ans == "Negative" ) ? "checked" : "" !!} maxlength="4">
+                                                    <input class="form-check-input" type="radio" name="blood_group_type[]"  id="Negative" value="Negative" {!! ($ans == "Negative" ) ? "checked" : "" !!} maxlength="4">
                                                     <label class="form-check-label" for="exampleRadios2">
                                                     Negative
                                                     </label>
                                                 </div>
                                             </div>
-                                                @error('blood_group')
+                                                @error('blood_group_type')
                                                 <div class="text text-danger">{{ $message }}</div>
                                                 @enderror
                                             
@@ -172,18 +165,16 @@
                                             <label class="col-md-3 col-form-label">Profile <span style="color:red">*</span></label>
                                             <div class="col-md-9">
                                                 <input class="form-control" type="file" id="profile" name="profile">
-                                                @error('profile')
+                                                @if(!empty($staffs['profile']))
+                                                <a href="{{URL::to('images/staffs/'.$staffs['profile'].'')}}" target="_blank"><img src="{{URL::to('images/staffs/'.$staffs['profile'].'')}}"  width="150" height="150" alt="staffs" />
+                                                </a>
+                                                @endif
+                                            </div>
+                                            @error('profile')
                                                     <div class="text text-danger">{{ $message }}</div>
                                                 @enderror
-                                            </div>
                                         </div>
-                                        <div class="mb-3 row">
-                                        @if(!empty($staffs['profile']))
-                                        <a href="{{URL::to('images/staffs/'.$staffs['profile'].'')}}" target="_blank">
-                                            <img src="{{URL::to('images/staffs/'.$staffs['profile'].'')}}" width="150" height="150" alt="staffs" />
-                                        </a>
-                                        @endif
-                                        </div>
+                                        
                                         <div class="mt-3 mx-auto">
                                             <button type="submit" class="btn btn-outline-primary">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <a href="{{route('staffs.staff_index')}}" class="btn btn-secondary waves-effect">

@@ -12,8 +12,8 @@ class SalaryInfoController extends Controller
     public function salary_info_index()
     {
         $salary = SalaryInfo::orderBy('id', 'asc');
-        if(!empty($_REQUEST['search_text'])) {
-            $search_text = $_REQUEST['search_text'];
+        if(!empty($_REQUEST['staff_name'])) {
+            $search_text = $_REQUEST['staff_name'];
             $salary->orwhere(function ($query) use ($search_text) {
                 $query->where('staff_name','LIKE', "%$search_text%");
                 });
@@ -45,7 +45,7 @@ class SalaryInfoController extends Controller
         $salary->designation=$staff->designation;
         $salary->gross_salary=$request->gross_salary;
         $salary->save();
-        Session::flash('message', 'Salary Info Details Added!');
+        Session::flash('message', 'Salary Details Added!');
         Session::flash('alert-class', 'success');
         return \Redirect::route('salary.salary_info_index', ['index' => $salary]);
 
@@ -82,4 +82,52 @@ class SalaryInfoController extends Controller
             exit;
         } 
     }
+
+
+    public function salary_info_edit($id=null)
+    {
+        $sals= SalaryInfo::where('id', '=', $id)->first();
+        return view('salary.salary_info_edit',['sals'=>$sals]);    
+    }
+    //update staff details
+    public function salary_info_update(Request $request,$id=null)
+    {
+        $validate=$request->validate([
+            'gross_salary'=>'required',
+        ]);
+        $salary=SalaryInfo::find($id);
+        $salary->staff_name=$salary->staff_name;
+        $salary->staff_code=$salary->staff_code;
+        $salary->designation=$salary->designation;
+        $salary->gross_salary=$request->gross_salary;
+        $salary->save();
+        Session::flash('message', 'Salary Details Updated!');
+        Session::flash('alert-class', 'success');
+        return \Redirect::route('salary.salary_info_index', ['index' => $salary]);
+
+    }
+
+
+    
+    //view salary info details
+
+    public function salary_info_view($id=null)
+    {
+        $sals= SalaryInfo::where('id', '=', $id)->first();
+        return view('salary.salary_info_view',['sals'=>$sals]);    
+    }
+
+    //delete salary info  details
+
+    public function salary_info_delete($id = null)
+    {
+        $sals= SalaryInfo::find($id);
+        $sals->delete();
+        Session::flash('message', 'Salary Details Deleted Sucessfully!');
+        Session::flash('alert-class', 'success');
+        return \Redirect::route('salary.salary_info_index', []);
+    }
 }
+
+    
+

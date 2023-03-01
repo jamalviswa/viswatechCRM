@@ -142,7 +142,7 @@
                                             </div>
                                             <div class="col-md-3 text-center" style="margin-top:7px">
                                                 <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="radio" name="blood_group_type[]"  id="exampleRadios1" value="{{old('Positive')}}">
+                                                    <input class="form-check-input" type="radio" name="blood_group_type" {!! (old('blood_group_type') == "Positive" ) ? "checked" : "" !!}  id="Positive" value="Positive">
                                                     <label class="form-check-label" for="exampleRadios1">
                                                     Positive
                                                     </label>
@@ -150,13 +150,13 @@
                                             </div>
                                             <div class="col-md-3 text-end"style="margin-top:7px">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="blood_group_type[]"  id="exampleRadios2" value="{{old('Negative')}}" >
+                                                    <input class="form-check-input" type="radio" name="blood_group_type" {!! (old('blood_group_type') == "Negative" ) ? "checked" : "" !!} id="Negative" value="Negative">
                                                     <label class="form-check-label" for="exampleRadios2">
                                                     Negative
                                                     </label>
                                                 </div>
                                             </div>
-                                                @error('blood_group')
+                                                @error('blood_group_type')
                                                 <div class="text text-danger">{{ $message }}</div>
                                                 @enderror
                                             

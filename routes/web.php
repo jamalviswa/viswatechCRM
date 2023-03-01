@@ -19,7 +19,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientsMeetingController;
 use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\SalaryInfoController;
-
+use App\Http\Controllers\SalaryIncrementController;
 
 Route::prefix('admin')->group(function () {
     //login
@@ -64,14 +64,23 @@ Route::prefix('admin')->group(function () {
     Route::get('/clients/meetings/view/{id}', [ClientsMeetingController::class, 'meeting_view'])->name('clients.meeting_view')->Middleware('auth');
     Route::get('/clients/meetings/delete/{id}', [ClientsMeetingController::class, 'meeting_delete'])->name('clients.meeting_delete')->Middleware('auth');
 
-    //salary management
+    //salary info management
 
     Route::get('/salary/info', [SalaryInfoController::class, 'salary_info_index'])->name('salary.salary_info_index')->Middleware('auth');
     Route::get('/salary/info/add', [SalaryInfoController::class, 'salary_info_add'])->name('salary.salary_info_add')->Middleware('auth');
     Route::post('/salary/info/store', [SalaryInfoController::class, 'salary_info_store'])->name('salary.salary_info_store')->Middleware('auth');
-
+    Route::get('/salary/info/edit/{id}', [SalaryInfoController::class, 'salary_info_edit'])->name('salary.salary_info_edit')->Middleware('auth');
+    Route::post('/salary/info/update/{id}', [SalaryInfoController::class, 'salary_info_update'])->name('salary.salary_info_update')->Middleware('auth');
+    Route::get('/salary/info/view/{id}', [SalaryInfoController::class, 'salary_info_view'])->name('salary.salary_info_view')->Middleware('auth');
+    Route::get('/salary/info/delete/{id}', [SalaryInfoController::class, 'salary_info_delete'])->name('salary.salary_info_delete')->Middleware('auth');
 
     Route::post('/salary/info/ajax', [SalaryInfoController::class, 'ajax'])->name('salary.ajax');
+
+
+    //salary increment management
+    Route::get('/salary/increment', [SalaryIncrementController::class, 'salary_increment_index'])->name('salary.salary_increment_index')->Middleware('auth');
+    Route::get('/salary/increment/add', [SalaryIncrementController::class, 'salary_increment_add'])->name('salary.salary_increment_add')->Middleware('auth');
+
 
     //logout
     Route::get('/logout', [AdminusersController::class,'logout'])->name('adminusers.logout');

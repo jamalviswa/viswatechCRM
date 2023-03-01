@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('staffs', function (Blueprint $table) {
-            $table->string('token',255)->nullable();
-
+        Schema::create('salary_increments', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -26,7 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('staffs', function (Blueprint $table) {
-        });
+        Schema::dropIfExists('salary_increments');
     }
 };

@@ -15,17 +15,19 @@ return new class extends Migration
     {
         Schema::create('staffs', function (Blueprint $table) {
             $table->id();
+            $table->string('staff_code',255)->nullable();
             $table->string('staff_name',255)->nullable();
             $table->string('username',255)->nullable();
             $table->string('password',255)->nullable();
-            $table->string('mobile_no',255)->nullable();
             $table->string('email',255)->nullable();
+            $table->string('mobile_number',255)->nullable();
+            $table->string('date_of_birth',255)->nullable();
+            $table->string('date_of_joining',255)->nullable();
             $table->string('designation',255)->nullable();
-            $table->string('dob',255)->nullable();
-            $table->string('doj',255)->nullable();
             $table->string('address',255)->nullable();
             $table->string('blood_group',255)->nullable();
             $table->string('profile',255)->nullable();
+            $table->string('token',255)->nullable();
             $table->enum('status',[ 'Active', 'Trash'])->default('Active');
             $table->timestamps();
         });

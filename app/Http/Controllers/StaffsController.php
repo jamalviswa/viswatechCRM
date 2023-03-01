@@ -87,8 +87,7 @@ class StaffsController extends Controller
         $staffs->mobile_number = $request->mobile_number;
         $staffs->date_of_birth = $request->date_of_birth;
         $staffs->date_of_joining= $request->date_of_joining;
-        $blood_type=implode(',',$request->blood_group_type);
-        $staffs->blood_group = $request->blood_group." ".$blood_type;
+        $staffs->blood_group = strtoupper($request->blood_group) . " " . $request->blood_group_type;
         $staffs->designation = $request->designation;
         $staffs->address = $request->address;
         if ($request->hasFile('profile')) {
@@ -117,9 +116,7 @@ class StaffsController extends Controller
     public function staff_edit($id=null)
     {
         $staffs= Staff::where('id', '=', $id)->first();
-
         $blood_group_type=explode(',',$staffs->blood_group_type);
-      
         return view('staffs.staff_edit',['staffs'=>$staffs,'blood_group_type'=>$blood_group_type]);
     }
 
