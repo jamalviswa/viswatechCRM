@@ -56,17 +56,17 @@
                                     <div class="input-group">
                                         <label class="col-form-label p-2">Staff Name</label>
                                         <select class="form-select" name="staff_name">
-                                                    <option selected>Select Staff</option>
-                                                    <?php
+                                            <option selected>Select Staff</option>
+                                            <?php
 
-                                                        $staffs = App\Models\Staff::where('status', 'Active')->orderby('id','asc')->get();
-                                                        foreach ($staffs as $staff) {
-                                                    ?>
-                                                    <option @if(isset($_REQUEST['staff_name']) && $_REQUEST['staff_name']==$staff['staff_name']) selected @endif value="{{ $staff['staff_name'] }}">{{ $staff['staff_name'] }}</option>
-                                                    <?php }
-                                                    ?>
+                                            $staffs = App\Models\Staff::where('status', 'Active')->orderby('id', 'asc')->get();
+                                            foreach ($staffs as $staff) {
+                                            ?>
+                                                <option @if(isset($_REQUEST['staff_name']) && $_REQUEST['staff_name']==$staff['staff_name']) selected @endif value="{{ $staff['staff_name'] }}">{{ $staff['staff_name'] }}</option>
+                                            <?php }
+                                            ?>
 
-                                                </select>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -84,6 +84,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+                            <?php if ($increments->count() > '0') { ?>
 
                                 <!-- Table Section Start -->
                                 <div class="table-responsive">
@@ -96,17 +97,70 @@
                                                 <th scope="col">Designation</th>
                                                 <th scope="col">Gross Salary(Rs)</th>
                                                 <th scope="col">Increment Amount(Rs)</th>
+                                                <th scope="col">Net Salary(Rs)</th>
                                                 <th scope="col">Action</th>
-                                                <th scope="col">Modified Date</th>
 
                                             </tr>
                                         </thead>
-                                        
+                                        <tbody style="text-align:center">
+                                            <?php $i = ($increments->currentpage() - 1) * $increments->perpage() + 1; ?>
+                                            @foreach($increments as $increment)
+                                            <tr>
+                                                <td>
+                                                    {{ $i }}
+                                                </td>
+                                                <td>
+                                                    <h5 class="font-size-15 mb-0">{{$increment['staff_code']}}</h5>
+                                                </td>
+                                                <td>
+                                                    @if(!empty($increment['staff_name'])) {{$increment['staff_name']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                    @if(!empty($increment['designation'])) {{$increment['designation']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                    @if(!empty($increment['gross_salary'])) {{$increment['gross_salary']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                    @if(!empty($increment['increment_amount'])) {{$increment['increment_amount']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                    @if(!empty($increment['net_salary'])) {{$increment['net_salary']}} @else {{"-"}} @endif
+                                                </td>
+                                                <td>
+                                                    <a type="button" class="btn btn-outline-info btn-sm"  href="{{ route('salary.salary_increment_edit', $increment['id']) }}" title="Edit">Edit</a>
+                                                    <a type="button" class="btn btn-outline-success btn-sm" title="View"  href="{{ route('salary.salary_increment_view',$increment['id']) }}">View</a>
+                                                    <a rel="tooltip" data-value="{{$increment['id']}}" href="{{ route('salary.salary_increment_delete', $increment['id']) }}" class="delete btn btn-outline-danger btn-sm" title="Delete">Delete</a>
+                                                </td>
+
+                                            </tr>
+                                            <?php $i++; ?>
+                                            @endforeach
+                                        </tbody>
                                     </table>
                                 </div>
                                 <!-- Table Section End -->
+                                <!-- Pagination Section Start -->
+                                <div class="row">
+                                    <div class="card-title-desc">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p> Showing {{$increments->firstItem()}} to {{$increments->lastItem()}} of {{$increments->total()}} entries</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="d-inline-block float-end">
+                                            {{$increments->links('layouts.pagination') }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination Section End -->
 
-                                
+                            <?php } else { ?>
+                                <div class="text-center">
+                                    <img src="{{URL::to('images/no-record.png')}}">
+                                </div>
+                            <?php } ?>
+
                         </div>
                     </div>
                 </div>

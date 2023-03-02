@@ -26,8 +26,8 @@
     <!-- plugin css -->
     <link href="{{ URL::asset('libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('libs/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet">
-    
-    
+
+
 </head>
 
 <body data-topbar="dark" data-layout="horizontal">
@@ -162,18 +162,75 @@
                 }
             });
         });
-        
     </script>
-
-<!-- <script>
-        jQuery(document).ready(function() {
-            jQuery('.staff_name').change(function() {
-                
-                    jQuery('#staff_code').show();
-                })
+    <script>
+        $('#staff').change(function() {
+            var salary = $(this).val();
+            $.ajax({
+                url: "{{route('increment.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "code": salary
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('.code').show();
+                    $("#staff_code").html(data);
+                }
             });
-        
-    </script> -->
+        });
+        $('#staff').change(function() {
+            var salary = $(this).val();
+            $.ajax({
+                url: "{{route('increment.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "designation": salary
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('.designation').show();
+                    $("#staff_designation").html(data);
+                }
+            });
+        });
+
+        $('#staff').change(function() {
+            var salary = $(this).val();
+            $.ajax({
+                url: "{{route('increment.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "gross_salary": salary
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $('.gross_salary').show();
+                    $("#gross_salary").html(data);
+                }
+            });
+        });
+    </script>
+<script>
+
+
+    $('#net_salary, #increment_amount').on("paste keyup",
+        function() {
+            var result = parseFloat($("#net_salary").val()) + parseFloat($("#increment_amount").val());
+            $("#final_salary").val((isNaN(result) ? '' : result).toFixed(2));
+        }
+    );
+
+    $('#incrementedit_amount').on("paste keyup",
+        function() {
+            var result = parseFloat($("#netedit_salary").val()) + parseFloat($("#incrementedit_amount").val());
+            $("#finaledit_salary").val((isNaN(result) ? '' : result).toFixed(2));
+        }
+    );
+    </script>
 </body>
 
 </html>

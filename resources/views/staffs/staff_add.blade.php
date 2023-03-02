@@ -115,7 +115,7 @@
                                             <label class="col-md-3 col-form-label">Date of Joining <span style="color:red">*</span></label>
                                             <div class="col-md-9">
                                                 <div class="input-group" id="datepicker1">
-                                                    <input type="text" class="form-control" name="date_of_joining"value="{{old('date_of_joining')}}" data-date-container='#datepicker1' data-provide="datepicker" data-date-autoclose="true">
+                                                    <input type="text" class="form-control" name="date_of_joining" value="{{old('date_of_joining')}}" data-date-container='#datepicker1' data-provide="datepicker" data-date-autoclose="true">
                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                 </div>
                                                 @error('date_of_joining')

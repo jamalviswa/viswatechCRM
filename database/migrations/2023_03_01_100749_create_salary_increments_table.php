@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('salary_increments', function (Blueprint $table) {
             $table->id();
+            $table->string('staff_code',255)->nullable();
+            $table->string('staff_name',255)->nullable();
+            $table->string('designation',255)->nullable();
+            $table->string('gross_salary',255)->nullable();
+            $table->string('increment_amount',255)->nullable();
+            $table->string('net_salary',255)->nullable();
+            $table->enum('status',['Active','Trash','Inactive'])->default('Active');
             $table->timestamps();
         });
     }

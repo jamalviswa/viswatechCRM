@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">View Salary Info Details</h4>
+                        <h4 class="mb-sm-0">View Salary Increment Details</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="{{route('dashboard.index')}}">Dashboard</a></li>
@@ -41,41 +41,41 @@
                                 <div class="row">
                                     <div class="offset-md-3 col-xl-6 offset-md-3">
                                         <div class="mb-3 row">
-                                            <label for="example-text-input" class="col-md-3  col-form-label">Staff Name</label>
-                                            <div class="col-md-9">
-                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->staff_name}}</label>
+                                            <label for="example-text-input" class="col-md-4  col-form-label">Staff Name</label>
+                                            <div class="col-md-8">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$increment->staff_name}}</label>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
-                                            <label for="example-text-input" class="col-md-3  col-form-label">Staff ID</label>
-                                            <div class="col-md-9">
-                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->staff_code}}</label>
+                                            <label class="col-md-4  col-form-label">Staff ID</label>
+                                            <div class="col-md-8">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$increment->staff_code}}</label>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
-                                            <label for="example-text-input" class="col-md-3  col-form-label">Designation</label>
-                                            <div class="col-md-9">
-                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->designation}}</label>
-                                            </div>
-                                        </div>
-                                        <?php  
-
-                                        $staffs = App\Models\Staff::where('id',$sals->staff_id)->first();
-                                        $doj=$staffs->date_of_joining;
-                                        ?>
-                                        <div class="mb-3 row">
-                                            <label for="example-text-input" class="col-md-3  col-form-label">Date of Joining</label>
-                                            <div class="col-md-9">
-                                                <label for="example-text-input" class="col-md-3  col-form-label"><?php echo $doj ?></label>
+                                            <label class="col-md-4  col-form-label">Designation</label>
+                                            <div class="col-md-8">
+                                                <label for="example-text-input" class="col-md-4  col-form-label">{{$increment->designation}}</label>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
-                                            <label class="col-md-3 col-form-label">Gross Salary<span style="color:red">*</span></label>
-                                            <div class="col-md-9" id="doj">
-                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$sals->gross_salary}}</label>
+                                            <label class="col-md-4 col-form-label">Gross Salary</label>
+                                            <div class="col-md-8" id="doj">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$increment->gross_salary}}</label>
                                             </div>
                                         </div>                                          
-                                        
+                                        <div class="mb-3 row">
+                                            <label class="col-md-4 col-form-label">Increment Amount</label>
+                                            <div class="col-md-8" id="doj">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$increment->increment_amount}}</label>
+                                            </div>
+                                        </div>  
+                                        <div class="mb-3 row">
+                                            <label class="col-md-4 col-form-label">Net Salary</label>
+                                            <div class="col-md-8" id="doj">
+                                                <label for="example-text-input" class="col-md-3  col-form-label">{{$increment->net_salary}}</label>
+                                            </div>
+                                        </div>   
                                     </div>
                                 </div><!--end of row-->
                             </form>

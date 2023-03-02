@@ -76,12 +76,19 @@ Route::prefix('admin')->group(function () {
 
     Route::post('/salary/info/ajax', [SalaryInfoController::class, 'ajax'])->name('salary.ajax');
 
-
     //salary increment management
-    Route::get('/salary/increment', [SalaryIncrementController::class, 'salary_increment_index'])->name('salary.salary_increment_index')->Middleware('auth');
-    Route::get('/salary/increment/add', [SalaryIncrementController::class, 'salary_increment_add'])->name('salary.salary_increment_add')->Middleware('auth');
 
+    Route::get('/salary/increment', [SalaryIncrementController::class, 'increment_index'])->name('salary.salary_increment_index')->Middleware('auth');
+    Route::get('/salary/increment/add', [SalaryIncrementController::class, 'increment_add'])->name('salary.salary_increment_add')->Middleware('auth');
+    Route::post('/salary/increment/store', [SalaryIncrementController::class, 'increment_store'])->name('salary.salary_increment_store')->Middleware('auth');
+    Route::get('/salary/increment/edit/{id}', [SalaryIncrementController::class, 'increment_edit'])->name('salary.salary_increment_edit')->Middleware('auth');
+    Route::post('/salary/increment/update/{id}', [SalaryIncrementController::class, 'increment_update'])->name('salary.salary_increment_update')->Middleware('auth');
+    Route::get('/salary/increment/view/{id}', [SalaryIncrementController::class, 'increment_view'])->name('salary.salary_increment_view')->Middleware('auth');
+    Route::get('/salary/increment/delete/{id}', [SalaryIncrementController::class, 'increment_delete'])->name('salary.salary_increment_delete')->Middleware('auth');
 
+    Route::post('/salary/increment/ajax', [SalaryIncrementController::class, 'increment_ajax'])->name('increment.ajax');
+
+    
     //logout
     Route::get('/logout', [AdminusersController::class,'logout'])->name('adminusers.logout');
 

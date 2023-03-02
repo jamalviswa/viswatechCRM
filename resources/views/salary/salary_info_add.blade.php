@@ -42,7 +42,7 @@
                                         <div class="mb-3 row">
                                             <label class="col-md-3 col-form-label">Staff Name <span style="color:red">*</span></label>
                                             <div class="col-md-9">
-                                            <select class="form-select" name="staff_name" id="staff_name" onchange="show()">
+                                                <select class="form-select" name="staff_name" id="staff_name">
                                                     <option value="0" selected="true">Select Staff</option>
                                                     <?php
                                                     $staffs = App\Models\Staff::where('status', 'Active')->get();
@@ -54,19 +54,19 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="mb-3 row code" style="display:none;" id="staff_code">
+                                        <div class="mb-3 row code" style="display:none;">
                                             <label class="col-md-3 col-form-label">Staff Id</label>
                                             <div class="col-md-9" id="code">
                                                 <input class="form-control" type="text" autocomplete="off" name="code">
                                             </div>
                                         </div>   
-                                        <div class="mb-3 row designation" style="display:none;" id="staff_designation">
+                                        <div class="mb-3 row designation" style="display:none;">
                                             <label class="col-md-3 col-form-label">Designation</label>
                                             <div class="col-md-9" id="designation">
                                                 <input class="form-control" type="text" autocomplete="off" name="designation">
                                             </div>
                                         </div>  
-                                        <div class="mb-3 row doj" style="display:none;" id="staff_doj">
+                                        <div class="mb-3 row doj" style="display:none;">
                                             <label class="col-md-3 col-form-label">Date of Joining</label>
                                             <div class="col-md-9" id="doj">
                                                 <input class="form-control" type="text" name="doj">
@@ -74,8 +74,8 @@
                                         </div>  
                                         <div class="mb-3 row">
                                             <label class="col-md-3 col-form-label">Gross Salary<span style="color:red">*</span></label>
-                                            <div class="col-md-9" id="doj">
-                                            <input class="form-control" type="text" id="gross_sal" name="gross_salary">
+                                            <div class="col-md-9">
+                                            <input class="form-control" type="text" id="gross_sal" name="gross_salary" value="{{old('gross_salary')}}">
                                                 @error('gross_salary')
                                                     <div class="text text-danger">{{ $message }}</div>
                                                 @enderror
