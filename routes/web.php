@@ -20,6 +20,7 @@ use App\Http\Controllers\ClientsMeetingController;
 use App\Http\Controllers\StaffsController;
 use App\Http\Controllers\SalaryInfoController;
 use App\Http\Controllers\SalaryIncrementController;
+use App\Http\Controllers\SalarySlipController;
 
 Route::prefix('admin')->group(function () {
     //login
@@ -87,6 +88,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/salary/increment/delete/{id}', [SalaryIncrementController::class, 'increment_delete'])->name('salary.salary_increment_delete')->Middleware('auth');
 
     Route::post('/salary/increment/ajax', [SalaryIncrementController::class, 'increment_ajax'])->name('increment.ajax');
+
+    //salary slip management
+
+    Route::get('/salary/slip/index', [SalarySlipController::class, 'index'])->name('salary.salary_slip_index')->Middleware('auth');
+    Route::get('/salary/slip/add', [SalarySlipController::class, 'add'])->name('salary.salary_slip_add')->Middleware('auth');
+    Route::get('/salary/slip/view', [SalarySlipController::class, 'view'])->name('salary.salary_slip')->Middleware('auth');
+
+    Route::post('/salary/slip/ajax', [SalarySlipController::class, 'slip_ajax'])->name('slip.ajax');
 
     
     //logout

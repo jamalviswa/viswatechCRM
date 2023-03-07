@@ -162,6 +162,8 @@
                 }
             });
         });
+
+        
     </script>
     <script>
         $('#staff').change(function() {
@@ -214,23 +216,135 @@
             });
         });
     </script>
-<script>
-
-
-    $('#net_salary, #increment_amount').on("paste keyup",
-        function() {
-            var result = parseFloat($("#net_salary").val()) + parseFloat($("#increment_amount").val());
-            $("#final_salary").val((isNaN(result) ? '' : result).toFixed(2));
-        }
-    );
-
-    $('#incrementedit_amount').on("paste keyup",
-        function() {
-            var result = parseFloat($("#netedit_salary").val()) + parseFloat($("#incrementedit_amount").val());
-            $("#finaledit_salary").val((isNaN(result) ? '' : result).toFixed(2));
-        }
-    );
+    <script>
+        $('#staff_names').change(function() {
+            var slip= $(this).val();
+            $.ajax({
+                url: "{{route('slip.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "name": slip
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $("#name").html(data);
+                }
+            });
+        });
+        $('#staff_names').change(function() {
+            var slip= $(this).val();
+            $.ajax({
+                url: "{{route('slip.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "code": slip
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $("#code").html(data);
+                }
+            });
+        });
+        $('#staff_names').change(function() {
+            var slip= $(this).val();
+            $.ajax({
+                url: "{{route('slip.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "designation": slip
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $("#designation").html(data);
+                }
+            });
+        });
+        $('#staff_names').change(function() {
+            var slip= $(this).val();
+            $.ajax({
+                url: "{{route('slip.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "doj": slip
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $("#doj").html(data);
+                }
+            });
+        });
+        $('#staff_names').change(function() {
+            var slip= $(this).val();
+            $.ajax({
+                url: "{{route('slip.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "basic": slip
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $("#basic").html(data);
+                }
+            });
+        });
+        $('#month').change(function() {
+            var month= $(this).val();
+            $.ajax({
+                url: "{{route('slip.ajax')}}",
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "month": month,
+                },
+                dataType: 'html',
+                success: function(data) {
+                    $("#no_of_days").html(data);
+                }
+            });
+        });
+        
     </script>
+    <script>
+        $('#net_salary, #increment_amount').on("paste keyup",
+            function() {
+                var result = parseFloat($("#net_salary").val()) + parseFloat($("#increment_amount").val());
+                $("#final_salary").val((isNaN(result) ? '' : result).toFixed(2));
+            }
+        );
+
+        $('#incrementedit_amount').on("paste keyup",
+            function() {
+                var result = parseFloat($("#netedit_salary").val()) + parseFloat($("#incrementedit_amount").val());
+                $("#finaledit_salary").val((isNaN(result) ? '' : result).toFixed(2));
+            }
+        );
+        $('#total_days,#working_days').on("paste keyup",
+            function() {
+                var result = parseInt($("#total_days").val()) - parseInt($("#working_days").val());
+                $("#lop_days").val((isNaN(result) ? '' : result));
+            }
+        );
+
+        $('#basic_sal,#hra,#bonus').on("paste keyup",
+            function() {
+                var gross = parseInt($("#basic_sal").val()) + parseInt($("#hra").val()) + parseInt($("#bonus").val());
+                $("#total_salary").val((isNaN(gross) ? '' : gross));
+            }
+        );
+        $('#basic_sal , #total_days').on("paste keyup",
+            function() {
+                var day = parseInt($("#basic_sal").val()) / parseInt($("#total_days").val()) ;
+                $("#leave_deduction").val((isNaN(day) ? '' : day));
+
+            }
+        );
+    </script>
+    
 </body>
 
 </html>

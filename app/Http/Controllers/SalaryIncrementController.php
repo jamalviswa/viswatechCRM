@@ -67,8 +67,11 @@ class SalaryIncrementController extends Controller
         $salary->designation = $staff->designation;
         $salary->gross_salary = $staff->gross_salary;
         $salary->increment_amount = $request->increment_amount;
-        $salary->net_salary = $request->net_salary;
+        $salary->net_salary = $salary->gross_salary + $request->increment_amount ;
+        $staff->gross_salary = $salary->gross_salary;
+        $staff->save();
         $salary->save();
+        
         Session::flash('message', 'Salary Increment Details Added!');
         Session::flash('alert-class', 'success');
         return \Redirect::route('salary.salary_increment_index', ['index' => $salary]);    

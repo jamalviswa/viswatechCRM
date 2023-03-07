@@ -81,6 +81,8 @@ class SalaryInfoController extends Controller
             }
             exit;
         } 
+
+       
     }
 
 
